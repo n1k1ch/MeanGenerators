@@ -1,0 +1,32 @@
+<section ng-controller="QuestionsController" ng-init="find()">
+  <div class="page-header">
+    <h1>Questions</h1>
+  </div>
+  <div class="list-group questions">
+    <div ng-repeat="question in questions" class="row list-group-item navbar-inverse">
+      <div class="col-md-11">
+        <a ui-sref="questions.edit({questionId: question._id})" class="list-group-item-heading">
+          <!--<h4 class="list-group-item-heading">Text:</h4>-->
+          <p class="list-group-item-text btn-lg" ng-bind="question.text"></p>
+          <small class="list-group-item-text">
+            Created on
+            <span ng-bind="question.created | date: 'MMM d, yyyy \'at\' HH:mm'"></span>
+            by
+            <span ng-bind="question.user.displayName"></span>
+          </small>
+        </a>
+      </div>
+      <div class="col-md-1">
+        <a class="btn btn-danger pull-right" ng-click="remove(question);">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="questions.$resolved && !questions.length">
+    There are no questions, <a ui-sref="questions.create">create one</a> faster!
+  </div>
+  <div class="alert alert-link text-center" ng-if="questions.$resolved && questions.length">
+    <a ui-sref="questions.create" class="btn btn-primary">Add Question</a>
+  </div>
+</section>

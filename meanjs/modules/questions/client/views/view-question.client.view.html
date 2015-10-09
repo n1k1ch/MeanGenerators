@@ -1,0 +1,22 @@
+<section ng-controller="QuestionsController" ng-init="findOne()">
+  <div class="page-header">
+    <h1></h1>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == question.user._id">
+    <a class="btn btn-primary" ui-sref="questions.edit({questionId: question._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <p class="lead" ng-bind="question.text"></p>
+  <small>
+    <em class="text-muted">
+      Created on
+      <span ng-bind="question.created | date:'mediumDate'"></span>
+      by
+      <span ng-bind="question.user.displayName"></span>
+    </em>
+  </small>
+</section>
