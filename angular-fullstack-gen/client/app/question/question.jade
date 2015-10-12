@@ -1,0 +1,20 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+
+div.alert-danger(ng-model="error")
+form.form-horizontal#quesitons
+  div.list-group
+    div.list-group-item(ng-repeat="question in questions", ng-class="{'list-group-item-success': question.editing}", ng-click="edit(question)")
+      div.list-group-item-heading(ng-show="!question.editing") {{question.text}}
+        button.btn.btn-danger.pull-right(ng-click="delete(question)") Delete
+      input.form-control(ng-form="form", ng-model="question.text", ng-show="question.editing", ng-blur="finishEdit(question, form.$dirty)", focus="{{question.editing}}")
+
+form.form-horizontal#createQuestion
+  //div.form-group.row
+  //  input.form-control.col-md-10(type="text", ng-model="newQuestionText")
+  //  button.btn.btn-primary.col-md-2(type='submit',ng-click="createNewQuestion()") Add New Question
+
+  div.input-group
+    input.form-control(ng-model="newQuestionText")
+    span.input-group-btn
+      button.btn.btn-primary(type="submit", ng-click="createNewQuestion()") Add New Question

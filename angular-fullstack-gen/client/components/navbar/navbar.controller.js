@@ -6,8 +6,14 @@ angular.module('angularFullstackDemoApp')
       'title': 'Home',
       'link': '/'
     },
-      {'title': 'Questions',
-      link:'/question'}
+      {
+        'title': 'Questions',
+        'link': '/question'
+      },
+      {
+        'title': 'Interviews',
+        'link': '/interview'
+      }
     ];
 
     $scope.isCollapsed = true;

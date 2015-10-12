@@ -49,50 +49,16 @@ angular.module('angularFullstackDemoApp', [
       },
       link: function(scope, element) {
         scope.$watch('trigger', function(value) {
-          console.log('focus triggered, value: ' + value + ", typeof value " + typeof(value));
-          if(value === "true") {
+          if(value === 'true') {
             $timeout(function() {
               element[0].focus();
-            })
+            });
           }
         });
       }
     };
   })
 
-  //.directive('focusIf', function($timeout) {
-  //  function link($scope, $element, $attrs) {
-  //    console.log('link focusIf; $element: ' + $element +", $attrs.focusIf: " + $attrs.focusIf );
-  //    var dom = $element[0];
-  //    if ($attrs.focusIf) {
-  //      $scope.$watch($attrs.focusIf, focus);
-  //    } else {
-  //      focus(true);
-  //    }
-  //    function focus(condition) {
-  //      if (condition) {
-  //        $timeout(function() {
-  //          dom.focus();
-  //        }, $scope.$eval($attrs.focusDelay) || 0);
-  //      }
-  //    }
-  //  }
-  //  return {
-  //    restrict: 'A',
-  //    link: link
-  //  };
-  //})
-  //
-  //.directive('selectme', function($timeout) {
-  //  return function (scope, element) {
-  //    $timeout(function () {
-  //      console.log('selectMe' );
-  //      var ele = element[0];
-  //      ele.focus();
-  //      ele.select();
-  //    }, 500)
-  //  }
-  //})
 
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
@@ -104,4 +70,13 @@ angular.module('angularFullstackDemoApp', [
         }
       });
     });
+
+    $rootScope.$on('$stateChangeSuccess',
+      function (event, toState, toParams, fromState, fromParams) {
+        console.log('$routeChangeSuccess, event: ' + event + ', fromState: ' + fromState + ', toState: ' + toState);
+
+        if(toState['title']) {
+          $rootScope.title = toState['title'];
+        }
+      });
   });

@@ -1,0 +1,34 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  .list-group
+    .list-group-item(ng-repeat="interview in interviews")
+      .list-group-item-heading {{interview.startedOn}}
+        |{{interview.interviewee}}&nbsp;
+        span.label.label-default {{interview.position}}
+        a.btn.btn-default.pull-right(ui-sref="addQuestions({interviewId: interview._id})") Add Questions
+        button.btn.btn-danger.pull-right(ng-click="delete(interview)") Delete
+
+  form#createInterview(ng-show="!current")
+    button.btn.btn-primary.btn-block(type="submit", ng-click="create()") Create Interview
+
+  .panel.panel-success(ng-show="current")
+    .panel-heading
+      h3 New Interview
+    .panel-body
+      .alert-danger(ng-show="errors.length")
+        h3
+          ng-pluralize(count="errors.length", when="{'one': 'One error', 'other': '{} errors'}") |:
+        ul
+          li(ng-repeat="error in errors") {{error}}
+      form.form-horizontal#editInterview(name='form')
+        .form-group(ng-class="{'has-error': form.interviewee.$invalid}")
+          label(for="interviewee") Interviewee
+          input#interviewee(name="interviewee").form-control(ng-model="current.interviewee")
+        .form-group(ng-class="{'has-error': form.position.$invalid}")
+          label(for="position") Position
+          .label-danger(ng-show="!form.position.$valid")
+          input#position(name="position").form-control(ng-model="current.position")
+        .btn-toolbar.pull-right
+          button.btn.btn-default(ng-click="cancel()") Cancel
+          button.btn.btn-primary(ng-click="save()") Save

@@ -15,10 +15,25 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+body {
+  color: #eee;
+  background-color: #333;
+}
+
+.list-group-item, .form-control, .panel {
+  color: inherit;
+}
+
+.list-group-item, .form-control, .panel, .jumbotron, .alert-danger {
+  background-color: inherit;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
+@import 'addQuestions/addQuestions.scss';
 @import 'admin/admin.scss';
+@import 'interview/interview.scss';
 @import 'main/main.scss';
 @import 'question/question.scss';
 @import 'modal/modal.scss';
