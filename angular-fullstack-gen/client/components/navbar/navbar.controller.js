@@ -5,7 +5,10 @@ angular.module('angularFullstackDemoApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    }];
+    },
+      {'title': 'Questions',
+      link:'/question'}
+    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

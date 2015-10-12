@@ -5,9 +5,7 @@
     "routesNeedle": "// Insert routes below",
     "routesBase": "/api/",
     "pluralizeRoutes": true,
-    "insertSockets": true,
-    "registerSocketsFile": "server/config/socketio.js",
-    "socketsNeedle": "// Insert sockets below",
+    "insertSockets": false,
     "filters": {
       "babel": true,
       "js": true,
