@@ -72,11 +72,11 @@ angular.module('angularFullstackDemoApp', [
     });
 
     $rootScope.$on('$stateChangeSuccess',
-      function (event, toState, toParams, fromState, fromParams) {
+      function (event, toState, toParams, fromState, fromParams) {/*jshint unused:false*/
         console.log('$routeChangeSuccess, event: ' + event + ', fromState: ' + fromState + ', toState: ' + toState);
 
-        if(toState['title']) {
-          $rootScope.title = toState['title'];
+        if(toState.title) {
+          $rootScope.title = toState.title;
         }
       });
   });

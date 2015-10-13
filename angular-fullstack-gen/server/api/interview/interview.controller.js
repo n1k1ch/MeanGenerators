@@ -63,12 +63,9 @@ exports.updateWithAnswers = function(req, res) {
         var countOfAnswers = answers.length;
         console.log(answers);
 
-        for(var i = 0; i < answers.length; i++) {
-          var curr = answers[i];
-
-          console.log(curr);
-          Answer.findById(curr._id, function(err, answer) {
-            var updatedAnswer = _.merge(answer, curr);
+        function updateAnswer(currentAnswer) {
+          Answer.findById(currentAnswer._id, function(err, answer) {
+            var updatedAnswer = _.merge(answer, currentAnswer);
             updatedAnswer.save(function(err) {
               if(err) {
                 return handleError(err);
@@ -79,6 +76,31 @@ exports.updateWithAnswers = function(req, res) {
               }
             });
           });
+        }
+
+        for(var i = 0; i < answers.length; i++) {
+          //JSHint error "Don't make functions within a loop"
+          // we need "i" variable in this function
+          // so, ignore JSHint warning
+          // TODO: find a way to do this without ignoring warning
+          /* jshint loopfunc:true */
+          //(function(curr){
+          //  Answer.findById(curr._id, function(err, answer) {
+          //    console.log(curr);
+          //    var updatedAnswer = _.merge(answer, curr);
+          //    updatedAnswer.save(function(err) {
+          //      if(err) {
+          //        return handleError(err);
+          //      }
+          //
+          //      if(--countOfAnswers === 0) {
+          //        return res.status(200).send('DONE');
+          //      }
+          //    });
+          //  });
+          //})(answers[i]);
+
+          updateAnswer(answers[i]);
         }
       });
     })

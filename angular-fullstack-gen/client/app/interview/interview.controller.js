@@ -30,13 +30,13 @@ angular.module('angularFullstackDemoApp')
       for(var field in $scope.form) {
         var fieldElem = $scope.form[field];
         if(fieldElem) {
-          if(fieldElem['$setValidity']) {
+          if(fieldElem.$setValidity) {
             console.log(field);
             console.log(fieldElem);
             fieldElem.$setValidity('server', true);
           }
 
-          if(fieldElem['$setPristine']) {
+          if(fieldElem.$setPristine) {
             fieldElem.$setPristine();
           }
         }
@@ -63,7 +63,7 @@ angular.module('angularFullstackDemoApp')
 
           angular.forEach(err.data.errors, function(errors, field) {
             $scope.form[field].$setValidity('server', false);
-            $scope.errors.push(errors['message']);
+            $scope.errors.push(errors.message);
           });
         });
     };
@@ -80,9 +80,5 @@ angular.module('angularFullstackDemoApp')
         }, function(err) {
           $scope.error = err;
         });
-    };
-
-    $scope.addQuestions = function() {
-
     };
   });
