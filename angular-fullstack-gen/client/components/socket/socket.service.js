@@ -29,7 +29,6 @@ angular.module('angularFullstackDemoApp')
        * @param {Function} cb
        */
       syncUpdates: function (modelName, array, cb) {
-        console.log('syncUpdates for ' + modelName);
         cb = cb || angular.noop;
 
         /**
