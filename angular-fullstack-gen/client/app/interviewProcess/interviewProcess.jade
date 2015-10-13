@@ -4,7 +4,8 @@ div(ng-include='"components/navbar/navbar.html"')
   h2 {{interview.interviewee}}
     |&nbsp;
     span.label.label-default {{interview.position}}
-  button.btn.btn-success.pull-right(ng-click='start()', ng-hide="current") Start
+  button.btn.btn-success.pull-right(ng-click='start()', ng-hide="current || interview.finishedAt") Start
+  a.btn.btn-success.pull-right(ui-sref='interviewReport({id: interview._id})', ng-show="interview.finishedAt") Report
 
 .container
   .list-group

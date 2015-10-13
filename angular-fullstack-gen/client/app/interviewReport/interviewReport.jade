@@ -1,0 +1,20 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  .row
+    .col-md-7
+      h1 {{interview.interviewee}}
+        span.label.label-default.pull-right {{interview.position}}
+    .col-md-5
+      .row
+        .col-md-6
+          |Started at {{interview.startedAt | date:'MMM dd, yyyy HH:MM:ss'}}
+        .col-md-6
+          |Finished at {{interview.finishedAt | date:'MMM dd, yyyy HH:MM:ss'}}
+  .list-group
+    .list-group-item(ng-repeat='answer in answers')
+      span.glyphicon.glyphicon-ok
+      |&nbsp;{{answer.question.text}}
+      span.pull-right(label-rating='{{answer.rate}}')
+      .list-group-item-text(ng-show="answer.comment")
+        | {{answer.comment}}
