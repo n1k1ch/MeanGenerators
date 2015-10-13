@@ -75,7 +75,8 @@ angular.module('angularFullstackDemoApp')
       restrict: 'A',
       link: function(scope, element, attrs) {
         element.addClass('label');
-        attrs.$observe('labelRating', function(interpolatedValue) {
+
+        var stopObserve = attrs.$observe('labelRating', function(interpolatedValue) {
           element.html(interpolatedValue);
 
           if(interpolatedValue <= 3) {
@@ -85,6 +86,10 @@ angular.module('angularFullstackDemoApp')
           } else {
             element.removeClass('label-danger label-warning').addClass('label-success');
           }
+        });
+
+        scope.$on('$destroy', function () {
+          stopObserve();
         });
       }
     };
