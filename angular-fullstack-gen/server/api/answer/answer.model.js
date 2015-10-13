@@ -6,7 +6,13 @@ var mongoose = require('mongoose'),
 var AnswerSchema = new Schema({
   question: {
     type: Schema.ObjectId,
-    refs: "Question"
+    ref: "Question",
+    required: 'Question is required'
+  },
+  interview: {
+    type: Schema.ObjectId,
+    ref: "Interview",
+    required: 'Interview is required'
   },
   rate: {
     type: Number
@@ -15,8 +21,7 @@ var AnswerSchema = new Schema({
     type: String
   },
   givenAt: {
-    type: Date,
-    default: Date.now
+    type: Date
   }
 });
 

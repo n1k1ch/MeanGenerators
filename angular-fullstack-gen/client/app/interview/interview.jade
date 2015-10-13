@@ -6,8 +6,8 @@ div(ng-include='"components/navbar/navbar.html"')
       .list-group-item-heading {{interview.startedOn}}
         |{{interview.interviewee}}&nbsp;
         span.label.label-default {{interview.position}}
-        a.btn.btn-default.pull-right(ui-sref="addQuestions({interviewId: interview._id})") Add Questions
         button.btn.btn-danger.pull-right(ng-click="delete(interview)") Delete
+        a.btn.btn-info.pull-right(ui-sref="addQuestions({interviewId: interview._id})") Add Questions
 
   form#createInterview(ng-show="!current")
     button.btn.btn-primary.btn-block(type="submit", ng-click="create()") Create Interview

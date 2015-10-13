@@ -61,7 +61,6 @@ angular.module('angularFullstackDemoApp')
           //  $scope.form[key].$error = err.data[key];
           //}
 
-
           angular.forEach(err.data.errors, function(errors, field) {
             $scope.form[field].$setValidity('server', false);
             $scope.errors.push(errors['message']);

@@ -28,6 +28,30 @@ exports.create = function(req, res) {
   });
 };
 
+exports.createForInteviewAndQuestion = function(req, res) {
+  Answer.create({interview: req.params.interviewId, question: req.params.questionId}, function(err, answer) {
+    if(err) {
+      return handleError(res, err);
+    }
+
+    console.log('created answer');
+    console.log(answer);
+
+    Answer.findById(answer._id)
+      .populate('question', 'text')
+      .exec(function(err, answerWithQuestion) {
+        if(err) {
+          return handleError(res, err);
+        }
+
+        console.log('populated answer with question');
+        console.log(answerWithQuestion);
+
+        return res.status(201).json(answerWithQuestion);
+      });
+  });
+};
+
 // Updates an existing answer in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }

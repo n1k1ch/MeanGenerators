@@ -23,7 +23,7 @@ var InterviewSchema = new Schema({
   },
   answers: [{
     type: Schema.ObjectId,
-    refs: 'Answer'
+    ref: 'Answer'
   }]
 });
 
