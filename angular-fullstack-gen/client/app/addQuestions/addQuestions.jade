@@ -1,0 +1,17 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  h2 {{interview.interviewee}}
+  h3 {{interview.position}}
+
+  .list-group(ng-show="answers.length") Questions to Ask
+    .list-group-item(ng-repeat="answer in answers")
+      .list-group-item-heading(ng-click="") {{answer.question.text}}
+        button.btn.btn-danger.pull-right(ng-click="delete(answer)") Delete
+
+
+  .list-group#allQuesitons(ng-show="allQuestions.length") All Questions
+    .list-group-item(ng-repeat="question in allQuestions | filter:{added: false}")
+      .list-group-item-heading(ng-click="add(question)") {{question.text}}
+
+  a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})") Start

@@ -1,0 +1,36 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  h2 {{interview.interviewee}}
+    |&nbsp;
+    span.label.label-default {{interview.position}}
+  button.btn.btn-success.pull-right(ng-click='start()', ng-hide="current") Start
+
+.container
+  .list-group
+    .list-group-item(ng-repeat='answer in answers | filter: {given: true}')
+      .list-group-item-heading {{answer.question.text}}
+        |&nbsp;
+        span.badge {{answer.rate}}
+
+  .panel.panel-info(ng-show='current')
+    .panel-heading
+      |{{current.question.text}}?
+    .panel-body
+      .container
+        form.form-horizontal
+          .row
+            .col-md-10
+              label(for='comment')
+              input.form-control(ng-model='current.comment', name="comment", focus='{{current}}')
+            .col-md-2
+              label(for='rate') Rate:
+              span.badge {{current.rate}}
+              input(type="range", orient="vertical", name="rate", min=0, max=10, ng-model="current.rate")
+      button.btn.btn-success.pull-right(ng-click='giveAnswer()') {{isLastAnswer() ? 'Finish' : 'Next'}}
+
+
+  .list-group
+    .list-group-item(ng-repeat='answer in answers | filter: {given : false}', ng-show="answer != current")
+      .list-group-item-heading {{answer.question.text}}
+        span.badge {{answer.rate}}
