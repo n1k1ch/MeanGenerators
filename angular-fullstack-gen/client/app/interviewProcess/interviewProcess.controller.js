@@ -68,4 +68,24 @@ angular.module('angularFullstackDemoApp')
           console.log(err);
         });
     }
+  })
+
+.directive('labelRating', function() {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        element.addClass('label');
+        attrs.$observe('labelRating', function(interpolatedValue) {
+          element.html(interpolatedValue);
+
+          if(interpolatedValue <= 3) {
+            element.removeClass('label-warning label-success').addClass('label-danger');
+          } else if (interpolatedValue >= 4 && interpolatedValue < 8) {
+            element.removeClass('label-danger label-success').addClass('label-warning');
+          } else {
+            element.removeClass('label-danger label-warning').addClass('label-success');
+          }
+        });
+      }
+    };
   });
