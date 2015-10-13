@@ -5,12 +5,12 @@ var mongoose = require('mongoose'),
 
 var AnswerSchema = new Schema({
   question: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Question",
     required: 'Question is required'
   },
   interview: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Interview",
     required: 'Interview is required'
   },
@@ -20,7 +20,10 @@ var AnswerSchema = new Schema({
   comment: {
     type: String
   },
-  givenAt: {
+  startedAt: {
+    type: Date
+  },
+  finishedAt: {
     type: Date
   }
 });

@@ -6,6 +6,7 @@ div(ng-include='"components/navbar/navbar.html"')
       .list-group-item-heading {{interview.startedOn}}
         |{{interview.interviewee}}&nbsp;
         span.label.label-default {{interview.position}}
+        a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})") Start
         button.btn.btn-danger.pull-right(ng-click="delete(interview)") Delete
         a.btn.btn-info.pull-right(ui-sref="addQuestions({interviewId: interview._id})") Add Questions
 

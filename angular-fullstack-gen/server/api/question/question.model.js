@@ -14,7 +14,7 @@ var QuestionSchema = new Schema({
     required: 'Text cannot be blank'
   },
   user: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User'
   }
 });

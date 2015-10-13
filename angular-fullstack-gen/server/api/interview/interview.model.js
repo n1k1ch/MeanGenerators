@@ -12,19 +12,15 @@ var InterviewSchema = new Schema({
     type: String,
     required: 'Position is required'
   },
-  startedOn: {
+  startedAt: {
     type: Date
   },
-  finishedOn: {
+  finishedAt: {
     type: Date
   },
   info: {
     type: String
-  },
-  answers: [{
-    type: Schema.ObjectId,
-    ref: 'Answer'
-  }]
+  }
 });
 
 module.exports = mongoose.model('Interview', InterviewSchema);

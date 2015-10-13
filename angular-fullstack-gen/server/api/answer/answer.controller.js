@@ -20,6 +20,16 @@ exports.show = function(req, res) {
   });
 };
 
+exports.findForInterview = function(req, res) {
+  Answer.find({interview: req.params.id}).populate('question', 'text').exec(function(err, answers){
+    if(err) {
+      return handleError(err);
+    }
+
+    return res.status(200).json(answers);
+  });
+};
+
 // Creates a new answer in the DB.
 exports.create = function(req, res) {
   Answer.create(req.body, function(err, answer) {
@@ -28,6 +38,7 @@ exports.create = function(req, res) {
   });
 };
 
+//Creates a new answer with specified interview and question ids
 exports.createForInteviewAndQuestion = function(req, res) {
   Answer.create({interview: req.params.interviewId, question: req.params.questionId}, function(err, answer) {
     if(err) {

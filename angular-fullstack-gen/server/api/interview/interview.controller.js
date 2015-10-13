@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('lodash');
-var Interview = require('./interview.model');
+var Interview = require('./interview.model'),
+  Answer = require('../answer/answer.model');
 
 // Get list of interviews
 exports.index = function(req, res) {
@@ -40,6 +41,47 @@ exports.update = function(req, res) {
       return res.status(200).json(interview);
     });
   });
+};
+
+exports.updateWithAnswers = function(req, res) {
+  Interview.findById(req.params.id, function(err, interview) {
+      if(err) {
+        return handleError(err);
+      }
+
+      if(!interview) {
+        return res.status(404).send('Not Found');
+      }
+
+      var updated = _.merge(interview, req.body.interview);
+      updated.save(function (err) {
+        if(err) {
+          return handleError(err);
+        }
+
+        var answers = req.body.answers;
+        var countOfAnswers = answers.length;
+        console.log(answers);
+
+        for(var i = 0; i < answers.length; i++) {
+          var curr = answers[i];
+
+          console.log(curr);
+          Answer.findById(curr._id, function(err, answer) {
+            var updatedAnswer = _.merge(answer, curr);
+            updatedAnswer.save(function(err) {
+              if(err) {
+                return handleError(err);
+              }
+
+              if(--countOfAnswers === 0) {
+                return res.status(200).send('DONE');
+              }
+            });
+          });
+        }
+      });
+    })
 };
 
 // Deletes a interview from the DB.

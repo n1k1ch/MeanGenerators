@@ -7,6 +7,7 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
+router.get('/for/interview/:id', controller.findForInterview);
 router.post('/', controller.create);
 router.post('/:interviewId/:questionId', controller.createForInteviewAndQuestion);
 router.put('/:id', controller.update);

@@ -20,12 +20,21 @@ body {
   background-color: #333;
 }
 
-.list-group-item, .form-control, .panel {
+.list-group-item, .form-control, .panel, legend {
   color: inherit;
 }
 
-.list-group-item, .form-control, .panel, .jumbotron, .alert-danger {
+.list-group-item, .form-control, .panel,, legend .jumbotron, .alert-danger {
   background-color: inherit;
+}
+
+input[type=range][orient=vertical]
+{
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  width: 8px;
+  height: 175px;
+  padding: 0 5px;
 }
 
 // Component styles are injected through grunt
@@ -34,6 +43,7 @@ body {
 @import 'addQuestions/addQuestions.scss';
 @import 'admin/admin.scss';
 @import 'interview/interview.scss';
+@import 'interviewProcess/interviewProcess.scss';
 @import 'main/main.scss';
 @import 'question/question.scss';
 @import 'modal/modal.scss';
