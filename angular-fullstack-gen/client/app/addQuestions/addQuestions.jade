@@ -4,6 +4,8 @@ div(ng-include='"components/navbar/navbar.html"')
   h2 {{interview.interviewee}}
   h3 {{interview.position}}
 
+  .row
+    a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})", ng-hide='!answers.length') Start
   .list-group(ng-show="answers.length") Questions to Ask
     .list-group-item(ng-repeat="answer in answers")
       .list-group-item-heading(ng-click="") {{answer.question.text}}
@@ -13,5 +15,3 @@ div(ng-include='"components/navbar/navbar.html"')
   .list-group#allQuesitons(ng-show="allQuestions.length") All Questions
     .list-group-item(ng-repeat="question in allQuestions | filter:{added: false}")
       .list-group-item-heading(ng-click="add(question)") {{question.text}}
-
-  a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})") Start

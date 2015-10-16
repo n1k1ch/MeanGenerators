@@ -15,21 +15,26 @@ div(ng-include='"components/navbar/navbar.html"')
         span(label-rating='{{answer.rate}}')
 
   .panel.panel-info(ng-show='current')
-    .panel-heading
-      |{{current.question.text}}?
     .panel-body
-      .container
-        form.form-horizontal
+      .well
+        .container-fluid
           .row
-            .col-md-10
-              label(for='comment')
-              input.form-control(ng-model='current.comment', name="comment", focus='{{current}}')
-            .col-md-2
-              label(for='rate') Rate:
-              |&nbsp;
-              span(label-rating='{{current.rate}}')
-              input(type="range", orient="vertical", name="rate", min=0, max=10, ng-model="current.rate")
-      button.btn.btn-success.pull-right(ng-click='giveAnswer()') {{isLastAnswer() ? 'Finish' : 'Next'}}
+            .col-md-12
+              form.form-horizontal
+                .container
+                  .row
+                    .col-md-10
+                      label(for='comment') {{current.question.text}}
+                      textarea.form-control(rows='5', ng-model='current.comment', name="comment", focus='{{current}}')
+                    .col-md-2
+                      label(for='rate') Rate:
+                      |&nbsp;
+                      span(label-rating='{{current.rate}}')
+                      input(type="range", orient="vertical", name="rate", min=0, max=10, ng-model="current.rate")
+          .row
+            .col-md-12
+              button.btn.btn-info.pull-right(ng-click='giveAnswer()', ng-hide='current.startedManually') {{isLastAnswer() ? 'Finish' : 'Next Question'}}
+              button.btn.btn-success.pull-right(ng-click='giveAnswer2()') Give
 
 
   .list-group
@@ -37,3 +42,4 @@ div(ng-include='"components/navbar/navbar.html"')
       .list-group-item-heading {{answer.question.text}}
         |&nbsp;
         span(label-rating='{{answer.rate}}')
+        button.btn.btn-success.pull-right(ng-click='startAnswer2(answer)', ng-hide='current') Start this
