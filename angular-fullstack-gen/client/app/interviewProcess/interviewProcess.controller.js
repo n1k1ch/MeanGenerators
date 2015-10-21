@@ -99,7 +99,7 @@ angular.module('angularFullstackDemoApp')
 
     $scope.startAnswer2 = function (answer) {
       console.log('start answer 2');
-      if ($scope.interview.startedAt == null) {
+      if ($scope.interview.startedAt === undefined) {
         $scope.interview.startedAt = new Date();
       }
 

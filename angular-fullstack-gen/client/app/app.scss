@@ -43,6 +43,10 @@ textarea {
   resize: none;
 }
 
+.margin-bot-50 {
+  margin-bottom: 50px;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
