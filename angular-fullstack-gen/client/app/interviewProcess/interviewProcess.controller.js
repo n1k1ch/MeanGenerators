@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularFullstackDemoApp')
-  .controller('InterviewProcessCtrl', function ($scope, $http, $stateParams) {
+  .controller('InterviewProcessCtrl', function ($scope, $http, $stateParams, $filter) {
     $scope.interview = {};
     $scope.answers = [];
     $scope.current = null;
@@ -58,6 +58,14 @@ angular.module('angularFullstackDemoApp')
         });
     }
 
+    $scope.answeredCount = function() {
+      return $filter('filter')($scope.answers, {given: true}).length;
+    };
+
+    $scope.allAnswered = function() {
+      return $filter('filter')($scope.answers, {given: true}).length === $scope.answers.length;
+    };
+
     $scope.start = function () {
       $scope.interview.startedAt = $scope.interview.startedAt || new Date();
       var question = findNextQuestion(0);
@@ -70,22 +78,16 @@ angular.module('angularFullstackDemoApp')
 
     $scope.giveAnswer = function () {
       var index = $scope.answers.indexOf($scope.current);
-      $scope.current.given = true;
       $scope.current.finishedAt = new Date();
+      $scope.current.given = true;
       index++;
+
+      var numberOfGivenAnswers = $filter('filter')($scope.answers, {given: true}).length;
+      $scope.current.seqNo = numberOfGivenAnswers == 0 ? 0 : numberOfGivenAnswers-1;
+
       $scope.current = findNextQuestion(index);
-
       if (!$scope.current) {
-        //finish
-        var allOver = true;
-
-        angular.forEach($scope.answers, function (e) {
-          if (e.given === false) {
-            allOver = false;
-          }
-        });
-
-        if (allOver) {
+        if(numberOfGivenAnswers === $scope.answers.length) {
           finishInterview();
         }
       } else {
@@ -94,7 +96,7 @@ angular.module('angularFullstackDemoApp')
     };
 
     $scope.isLastAnswer = function () {
-      return $scope.answers.indexOf($scope.current) === $scope.answers.length;
+      return $filter('filter')($scope.answers, {given: true}).length === $scope.answers.length-1;
     };
 
     $scope.startAnswer2 = function (answer) {
@@ -110,6 +112,8 @@ angular.module('angularFullstackDemoApp')
     };
 
     $scope.giveAnswer2 = function () {
+      var numberOfGivenAnswers = $filter('filter')($scope.answers, {given: true}).length;
+      $scope.current.seqNo = numberOfGivenAnswers;
       $scope.current.given = true;
       $scope.current.finishedAt = new Date();
       $scope.current = null;
@@ -117,6 +121,10 @@ angular.module('angularFullstackDemoApp')
       if(!findNextQuestion(0)) {
         finishInterview();
       }
+    };
+
+    $scope.setRate = function(rate) {
+      $scope.current.rate = rate;
     };
   })
 

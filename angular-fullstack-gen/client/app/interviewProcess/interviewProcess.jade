@@ -38,7 +38,7 @@ div(ng-include='"components/navbar/navbar.html"')
                 span(label-rating='{{current.rate}}')
                 button.btn.btn-info(ng-click='giveAnswer()', ng-hide='current.startedManually') {{isLastAnswer() ? 'Finish' : 'Next Question'}}
                 button.btn.btn-primary(ng-click='giveAnswer2()') Give&nbsp;
-  .row
+  .row(ng-show="!allAnswered()")
     h3 To Answer:
   .row
     .list-group
