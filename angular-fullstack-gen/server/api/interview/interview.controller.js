@@ -113,7 +113,11 @@ exports.destroy = function(req, res) {
     if(!interview) { return res.status(404).send('Not Found'); }
     interview.remove(function(err) {
       if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
+
+      Answer.remove({interview: req.params.id}, function(err) {
+        if(err) { return handleError(res, err); }
+        return res.status(204).send('No Content');
+      });
     });
   });
 };
