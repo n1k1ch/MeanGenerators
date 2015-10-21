@@ -16,21 +16,27 @@ angular.module('angularFullstackDemoApp')
 
     $http.get('/api/questions')
       .then(function(response) {
-        console.log(response.data);
         $scope.allQuestions = response.data;
 
         angular.forEach($scope.allQuestions, function(el) {
           el.added = false;
         });
 
-        socket.syncUpdates('question', $scope.allQuestions);
-      }, function(err) {
-        console.log(err);
-      });
+        $http.get('/api/answers/for/interview/' + $stateParams.interviewId).then(function (response) {
+          $scope.answers = response.data;
 
-    $http.get('/api/answers/for/interview/' + $stateParams.interviewId)
-      .then(function (response) {
-        $scope.answers = response.data;
+          angular.forEach($scope.answers, function(answer) {
+            angular.forEach($scope.allQuestions, function(question) {
+              if (answer.question._id === question._id) {
+                question.added = true;
+              }
+            });
+          });
+        }, function (err) {
+          console.log(err);
+        });
+
+        socket.syncUpdates('question', $scope.allQuestions);
       }, function(err) {
         console.log(err);
       });

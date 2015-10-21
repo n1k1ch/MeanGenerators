@@ -8,6 +8,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+$fancyColor: #307967;
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -45,6 +47,23 @@ textarea {
 
 .margin-bot-50 {
   margin-bottom: 50px;
+}
+
+.list-group.addable > .list-group-item:hover {
+  text-shadow: 2px 2px 2px $fancyColor;
+}
+
+.list-group.addable > .list-group-item:hover::after {
+  content: 'Add';
+  position: absolute;
+  top: 0;
+  right: -50px;
+  padding: 10px;
+  border: 2px solid $fancyColor;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-shadow: none;
+  color: $fancyColor;
 }
 
 // Component styles are injected through grunt
