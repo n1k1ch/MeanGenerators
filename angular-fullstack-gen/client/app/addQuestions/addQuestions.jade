@@ -9,7 +9,7 @@ div(ng-include='"components/navbar/navbar.html"')
         a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})", ng-hide='!answers.length') Start Interview
     .list-group(ng-show="answers.length")
       .list-group-item(ng-repeat="answer in answers")
-        .list-group-item-heading(ng-click="") {{answer.question.text}}
+        .list-group-item-heading {{answer.question.text}}
           button.btn.btn-danger.pull-right(ng-click="delete(answer)") Delete
 
 
