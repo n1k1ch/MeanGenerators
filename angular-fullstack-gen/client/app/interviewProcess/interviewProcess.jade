@@ -17,6 +17,7 @@ div(ng-include='"components/navbar/navbar.html"')
           .list-group-item-heading {{answer.question.text}}
             |&nbsp;
             span(label-rating='{{answer.rate}}')
+          .list-group-item-text(ng-show="answer.comment") {{answer.comment}}
   .row(ng-show='current')
     .col-md-12
       .container.well
