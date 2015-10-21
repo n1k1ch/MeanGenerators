@@ -1,22 +1,22 @@
 div(ng-include='"components/navbar/navbar.html"')
 
 .container
-  h2 {{interview.interviewee}}
+  h2.page-header {{interview.interviewee}}
     span.badge {{interview.position}}
 
-  .row
-    a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})", ng-hide='!answers.length') Start
-  .page-header Questions to Ask
-  .list-group(ng-show="answers.length")
-    .list-group-item(ng-repeat="answer in answers")
-      .list-group-item-heading(ng-click="") {{answer.question.text}}
-        button.btn.btn-danger.pull-right(ng-click="delete(answer)") Delete
+  .row.well
+    h3 Questions to Ask
+        a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})", ng-hide='!answers.length') Start Interview
+    .list-group(ng-show="answers.length")
+      .list-group-item(ng-repeat="answer in answers")
+        .list-group-item-heading(ng-click="") {{answer.question.text}}
+          button.btn.btn-danger.pull-right(ng-click="delete(answer)") Delete
 
 
   .page-header All Questions
     .pull-right.input-group
       label Filter:
       input.input(type="text",  ng-model="search")
-  .list-group#allQuesitons(ng-show="allQuestions.length")
-    .list-group-item(ng-repeat="question in allQuestions | filter:{text: search, added: false}")
-      .list-group-item-heading(ng-click="add(question)") {{question.text}}
+  .list-group.addable#allQuesitons(ng-show="allQuestions.length")
+    .list-group-item(ng-repeat="question in allQuestions | filter:{text: search, added: false}", ng-click="add(question)")
+      .list-group-item-heading {{question.text}}
