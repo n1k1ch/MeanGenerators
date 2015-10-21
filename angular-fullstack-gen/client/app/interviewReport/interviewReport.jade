@@ -2,18 +2,24 @@ div(ng-include='"components/navbar/navbar.html"')
 
 .container
   .row
-    .col-md-7
-      h1 {{interview.interviewee}}
-        span.label.label-default.pull-right {{interview.position}}
-    .col-md-5
-      .row
-        .col-md-6
-          |Started at {{interview.startedAt | date:'MMM dd, yyyy HH:MM:ss'}}
-        .col-md-6
-          |Finished at {{interview.finishedAt | date:'MMM dd, yyyy HH:MM:ss'}}
-  .list-group
-    .list-group-item(ng-repeat='answer in answers', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate >= 8}")
-      |&nbsp;{{answer.question.text}}
-      span.pull-right(label-rating='{{answer.rate}}')
-      .list-group-item-text(ng-show="answer.comment")
-        | {{answer.comment}}
+    .col-md-12
+      .jumbotron
+        .container
+          .col-md-8
+            h1 {{interview.interviewee}}
+            h3
+              span.label.label-default {{interview.position}}
+          .col-md-4
+            .row
+              .container
+                .row
+                  h4.page-header Started at {{interview.startedAt | date:'MMM dd, yyyy HH:MM:ss'}}
+                .row
+                  h4.page-header Finished at {{interview.finishedAt | date:'MMM dd, yyyy HH:MM:ss'}}
+  .row
+    .list-group
+      .list-group-item(ng-repeat='answer in answers', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate >= 8}")
+        |&nbsp;{{answer.question.text}}
+        span.pull-right(label-rating='{{answer.rate}}')
+        .list-group-item-text(ng-show="answer.comment")
+          | {{answer.comment}}
