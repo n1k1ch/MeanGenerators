@@ -70,6 +70,16 @@ textarea {
   color: $fancyColor;
 }
 
+.close-btn, .close-btn:hover {
+  cursor: pointer;
+  color: #ff3d00;
+  margin-left: 5px;
+}
+
+.close-btn-sibling {
+  margin-top: -10px;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';

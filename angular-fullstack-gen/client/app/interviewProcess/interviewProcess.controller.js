@@ -126,6 +126,16 @@ angular.module('angularFullstackDemoApp')
     $scope.setRate = function(rate) {
       $scope.current.rate = rate;
     };
+
+    $scope.deleteAnswer = function(answer) {
+      $http.delete('/api/answers/' + answer._id)
+        .then(function(response){
+          var index = $scope.answers.indexOf(answer);
+          $scope.answers.splice(index, 1);
+        }, function(err){
+          console.log(err);
+        });
+    }
   })
 
   .directive('labelRating', function () {
@@ -151,4 +161,11 @@ angular.module('angularFullstackDemoApp')
         });
       }
     };
+  })
+
+  .directive('closeBtn', function () {
+    return {
+      restrict: 'E',
+      template: '<span class="close-btn"><i class="fa fa-2x fa-close"></i></span>'
+    }
   });
