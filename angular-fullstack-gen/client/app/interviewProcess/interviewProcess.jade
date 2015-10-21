@@ -8,38 +8,42 @@ div(ng-include='"components/navbar/navbar.html"')
   a.btn.btn-success.pull-right(ui-sref='interviewReport({id: interview._id})', ng-show="interview.finishedAt") Report
 
 .container
-  .list-group
-    .list-group-item(ng-repeat='answer in answers | filter: {given: true}')
-      .list-group-item-heading {{answer.question.text}}
-        |&nbsp;
-        span(label-rating='{{answer.rate}}')
+  .row(ng-show="answeredCount() !== 0")
+    h4 Answered:
+  .row
+    .col-md-12
+      .list-group
+        .list-group-item(ng-repeat='answer in answers | filter: {given: true}', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate > 8}")
+          .list-group-item-heading {{answer.question.text}}
+            |&nbsp;
+            span(label-rating='{{answer.rate}}')
+  .row(ng-show='current')
+    .col-md-12
+      .container.well
+        .row.margin-bot-20
+          .col-md-10
+            label(for='comment') {{current.question.text}}
+            textarea.form-control(rows='5', ng-model='current.comment', name="comment", focus='{{current}}')
+        .row.margin-bot-20
+          .col-md-2
 
-  .panel.panel-info(ng-show='current')
-    .panel-body
-      .well
-        .container-fluid
-          .row
+          .col-md-10
+            .btn-group.pull-right
+              a.btn.btn-danger(ng-repeat="rate in [0,1,2,3]", ng-click="setRate(rate)", ng-class="{'active': rate === current.rate}") {{rate}}
+              a.btn.btn-warning(ng-repeat="rate in [4,5,6,7]", ng-click="setRate(rate)", ng-class="{'active': rate === current.rate}") {{rate}}
+              a.btn.btn-success(ng-repeat="rate in [8,9,10]", ng-click="setRate(rate)", ng-class="{'active': rate === current.rate}") {{rate}}
+        .row
             .col-md-12
-              form.form-horizontal
-                .container
-                  .row
-                    .col-md-10
-                      label(for='comment') {{current.question.text}}
-                      textarea.form-control(rows='5', ng-model='current.comment', name="comment", focus='{{current}}')
-                    .col-md-2
-                      label(for='rate') Rate:
-                      |&nbsp;
-                      span(label-rating='{{current.rate}}')
-                      input(type="range", orient="vertical", name="rate", min=0, max=10, ng-model="current.rate")
-          .row
-            .col-md-12
-              button.btn.btn-info.pull-right(ng-click='giveAnswer()', ng-hide='current.startedManually') {{isLastAnswer() ? 'Finish' : 'Next Question'}}
-              button.btn.btn-success.pull-right(ng-click='giveAnswer2()') Give
-
-
-  .list-group
-    .list-group-item(ng-repeat='answer in answers | filter: {given : false}', ng-show="answer != current")
-      .list-group-item-heading {{answer.question.text}}
-        |&nbsp;
-        span(label-rating='{{answer.rate}}')
-        button.btn.btn-success.pull-right(ng-click='startAnswer2(answer)', ng-hide='current') Start this
+              .pull-right
+                span(label-rating='{{current.rate}}')
+                button.btn.btn-info(ng-click='giveAnswer()', ng-hide='current.startedManually') {{isLastAnswer() ? 'Finish' : 'Next Question'}}
+                button.btn.btn-primary(ng-click='giveAnswer2()') Give&nbsp;
+  .row
+    h3 To Answer:
+  .row
+    .list-group
+      .list-group-item(ng-repeat='answer in answers | filter: {given : false}', ng-show="answer != current")
+        .list-group-item-heading {{answer.question.text}}
+          |&nbsp;
+          span(label-rating='{{answer.rate}}')
+          button.btn.btn-primary.pull-right(ng-click='startAnswer2(answer)', ng-hide='current') Start this
