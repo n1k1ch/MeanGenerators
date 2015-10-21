@@ -2,16 +2,21 @@ div(ng-include='"components/navbar/navbar.html"')
 
 .container
   h2 {{interview.interviewee}}
-  h3 {{interview.position}}
+    span.badge {{interview.position}}
 
   .row
     a.btn.btn-success.pull-right(ui-sref="interviewProcess({id: interview._id})", ng-hide='!answers.length') Start
-  .list-group(ng-show="answers.length") Questions to Ask
+  .page-header Questions to Ask
+  .list-group(ng-show="answers.length")
     .list-group-item(ng-repeat="answer in answers")
       .list-group-item-heading(ng-click="") {{answer.question.text}}
         button.btn.btn-danger.pull-right(ng-click="delete(answer)") Delete
 
 
-  .list-group#allQuesitons(ng-show="allQuestions.length") All Questions
-    .list-group-item(ng-repeat="question in allQuestions | filter:{added: false}")
+  .page-header All Questions
+    .pull-right.input-group
+      label Filter:
+      input.input(type="text",  ng-model="search")
+  .list-group#allQuesitons(ng-show="allQuestions.length")
+    .list-group-item(ng-repeat="question in allQuestions | filter:{text: search, added: false}")
       .list-group-item-heading(ng-click="add(question)") {{question.text}}
