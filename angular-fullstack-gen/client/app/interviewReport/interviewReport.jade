@@ -12,8 +12,7 @@ div(ng-include='"components/navbar/navbar.html"')
         .col-md-6
           |Finished at {{interview.finishedAt | date:'MMM dd, yyyy HH:MM:ss'}}
   .list-group
-    .list-group-item(ng-repeat='answer in answers')
-      span.glyphicon.glyphicon-ok
+    .list-group-item(ng-repeat='answer in answers', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate >= 8}")
       |&nbsp;{{answer.question.text}}
       span.pull-right(label-rating='{{answer.rate}}')
       .list-group-item-text(ng-show="answer.comment")

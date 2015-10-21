@@ -13,7 +13,7 @@ div(ng-include='"components/navbar/navbar.html"')
   .row
     .col-md-12
       .list-group
-        .list-group-item(ng-repeat='answer in answers | filter: {given: true}', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate > 8}")
+        .list-group-item(ng-repeat='answer in answers | filter: {given: true}', ng-class="{'list-group-item-danger':answer.rate <= 3, 'list-group-item-warning': answer.rate > 3 && answer.rate < 8, 'list-group-item-success': answer.rate >= 8}")
           .list-group-item-heading {{answer.question.text}}
             |&nbsp;
             span(label-rating='{{answer.rate}}')
